@@ -1,5 +1,3 @@
-import { FileEmployeesRepository } from "./FileEmployeesRepository";
-
 export class BirthdayService {
   constructor(employeesRepository) {
     this.employeesRepository = employeesRepository;
@@ -9,16 +7,18 @@ export class BirthdayService {
     let employees = this.employeesRepository.getEmployeesByBirthDate(ourDate);
 
     employees.forEach((employee) => {
-      const message = {
-        host: smtpUrl,
-        port: smtpPort,
-        from: "sender@here.com",
-        to: [employee.getEmail()],
-        subject: "Happy Birthday!",
-        text: `Happy Birthday, dear ${employee.getFirstName()}!`,
-      };
-      transport.sendMail(message);
+      this.sendGreetingToEmployee(employee, smtpUrl, smtpPort, transport);
     });
   }
-
+  sendGreetingToEmployee(employee, smtpUrl, smtpPort, transport) {
+    const message = {
+      host: smtpUrl,
+      port: smtpPort,
+      from: "sender@here.com",
+      to: [employee.getEmail()],
+      subject: "Happy Birthday!",
+      text: `Happy Birthday, dear ${employee.getFirstName()}!`,
+    };
+    transport.sendMail(message);
+  }
 }
