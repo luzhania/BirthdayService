@@ -2,9 +2,12 @@ import { Employee } from "./Employee";
 import fs from "fs";
 import path from "path";
 export class FileEmployeesRepository {
-    getEmployeesByBirthDate(ourDate, fileName) {
+    constructor(fileName) {
+        this.fileName = fileName;
+      }
+    getEmployeesByBirthDate(ourDate) {
         const data = fs.readFileSync(
-          path.resolve(__dirname, `${fileName}`), //`../${fileName}`),
+          path.resolve(__dirname, `${this.fileName}`), //`../${fileName}`),
           "UTF-8"
         );
     

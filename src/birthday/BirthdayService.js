@@ -1,11 +1,12 @@
 import { FileEmployeesRepository } from "./FileEmployeesRepository";
 
 export class BirthdayService {
-  constructor() {}
+  constructor(employeesRepository) {
+    this.employeesRepository = employeesRepository;
+  }
 
-  sendGreetings(ourDate, fileName, smtpUrl, smtpPort, transport) {
-    let employeesRepository = new FileEmployeesRepository();
-    let employees = employeesRepository.getEmployeesByBirthDate(ourDate, fileName);
+  sendGreetings(ourDate, smtpUrl, smtpPort, transport) {
+    let employees = this.employeesRepository.getEmployeesByBirthDate(ourDate);
 
     employees.forEach((employee) => {
       const message = {
