@@ -1,14 +1,13 @@
-import { SmtpGreetingDelivery } from "./SmtpGreetingDelivery";
 export class BirthdayService {
-  constructor(employeesRepository) {
+  constructor(greetingDelivery, employeesRepository) {
     this.employeesRepository = employeesRepository;
+    this.greetingDelivery = greetingDelivery;
   }
 
-  sendGreetings(ourDate, smtpUrl, smtpPort, transport) {
+  sendGreetings(ourDate) {
     let employees = this.employeesRepository.getEmployeesByBirthDate(ourDate);
-    let greetingDelivery = new SmtpGreetingDelivery();
     employees.forEach((employee) => {
-      greetingDelivery.sendGreetingToEmployee(employee, smtpUrl, smtpPort, transport);
+      this.greetingDelivery.sendGreetingToEmployee(employee);
     });
   }
 }

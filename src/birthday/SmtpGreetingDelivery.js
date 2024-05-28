@@ -1,13 +1,18 @@
 export class SmtpGreetingDelivery {
-    sendGreetingToEmployee(employee, smtpUrl, smtpPort, transport) {
+    constructor(smtpPort, smtpUrl, transport) {
+        this.smtpPort = smtpPort;
+        this.smtpUrl = smtpUrl;
+        this.transport = transport;
+      }
+    sendGreetingToEmployee(employee) {
         const message = {
-          host: smtpUrl,
-          port: smtpPort,
+          host: this.smtpUrl,
+          port: this.smtpPort,
           from: "sender@here.com",
           to: [employee.getEmail()],
           subject: "Happy Birthday!",
           text: `Happy Birthday, dear ${employee.getFirstName()}!`,
         };
-        transport.sendMail(message);
+        this.transport.sendMail(message);
       }
 }
